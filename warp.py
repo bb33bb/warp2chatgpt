@@ -3,13 +3,18 @@ import json
 import subprocess
 import platform
 
+
 # 检查xray是否已安装
 def check_xray_installed():
     try:
         subprocess.check_output(['xray', '-version'])
         return True
-    except FileNotFoundError:
-        return False
+    except Exception:
+        try:
+            subprocess.check_output(['/etc/xray/bin/xray', '-version'])
+            return True
+        except FileNotFoundError:
+            return False
 
 def check_warp_installed():
     try:
@@ -44,15 +49,27 @@ def install_warp():
 
 # 读取config.json文件
 def read_config():
-    with open('/usr/local/etc/xray/config.json', 'r') as f:
-        config = json.load(f)
-    return config
+    global config_file_path
+    config_paths = ['/usr/local/etc/xray/config.json', '/etc/xray/config.json']
+    for config_path in config_paths:
+        if os.path.exists(config_path):
+            config_file_path=config_path
+            with open(config_path, 'r') as f:
+                config = json.load(f)
+                print("读取配置文件成功.")
+                print("配置文件为")
+                print(config_path)
+            return config
+
+    print("File does not exist in any of the provided paths.")
+    return None
 
 # 修改config.json文件
 def modify_config(config):
     # 如果routing不存在，则创建routing对象，并向rules数组插入一个对象
     print("开始更新配置文件......")
     if 'routing' not in config:
+        print("routing 不存在于config中.")
         config['routing'] = {
             'domainStrategy': 'AsIs',
             'rules': [
@@ -84,6 +101,7 @@ def modify_config(config):
             has_warp = True
 
     if not has_warp:
+        print("outbounds中没有WARP.")
         config['outbounds'].append({
             'tag': 'WARP',
             'protocol': 'socks',
@@ -97,7 +115,7 @@ def modify_config(config):
             }
         })
     # 保存修改后的config.json文件
-    with open('/usr/local/etc/xray/config.json', 'w') as f:
+    with open(config_file_path, 'w') as f:
         json.dump(config, f, indent=4)
     print('更新配置文件成功！')
 
@@ -125,6 +143,7 @@ else:
         print("连通chat.openai.com成功！")
 
     config = read_config()
+    
     modify_config(config)
     restart_xray()
 
