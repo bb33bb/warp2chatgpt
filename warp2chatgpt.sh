@@ -32,4 +32,4 @@ else
 fi
 
 # 执行python脚本安装warp并修改xray配置
-curl -sSL https://raw.githubusercontent.com/xianlinyi/warp2chatgpt/master/warp.py | python3
+curl -sSL https://raw.githubusercontent.com/bb33bb/warp2chatgpt/master/warp.py | python3
