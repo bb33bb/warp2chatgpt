@@ -12,5 +12,5 @@ ip被openai封禁的vps(访问chatgpt时错误码是1020）
 ## 运行
 使用root账户运行以下代码：
 ```shell
-curl -sSL https://raw.githubusercontent.com/xianlinyi/warp2chatgpt/master/warp2chatgpt.sh | bash
+curl -sSL https://github.com/bb33bb/warp2chatgpt/blob/master/warp2chatgpt.sh | bash
 ```
