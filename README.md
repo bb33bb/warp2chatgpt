@@ -21,10 +21,12 @@ sudo apt-get update && sudo apt-get install cloudflare-warp
 warp-cli register
 warp-cli set-mode proxy
 warp-cli connect
-warp-cli enable-always-on
-warp-cli set-proxy-port 40000
+warp-cli proxy port 40000
+# warp-cli set-proxy-port 40000
+# warp-cli enable-always-on
+
 # 查询状态
 systemctl status warp-svc.service
 # 修改配置
-curl -sSL https://github.com/bb33bb/warp2chatgpt/blob/master/warp2chatgpt.sh | bash
+curl -sSL https://raw.githubusercontent.com/bb33bb/warp2chatgpt/master/warp2chatgpt.sh | bash
 ```

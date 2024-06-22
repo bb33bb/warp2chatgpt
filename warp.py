@@ -17,6 +17,17 @@ def check_xray_installed():
         except FileNotFoundError:
             return False
 
+def check_v2ray_installed():
+    try:
+        subprocess.check_output(['v2ray', 'version'])
+        return True
+    except Exception:
+        try:
+            subprocess.check_output(['/usr/local/bin/v2ray', 'version'])
+            return True
+        except FileNotFoundError:
+            return False
+        
 def check_warp_installed():
     try:
         subprocess.check_output(['warp-cli', '-V'])
@@ -127,10 +138,15 @@ def restart_xray():
     print("重启完毕！")
 
 # 执行操作
-print('检查是否安装xray......')
-if not check_xray_installed():
-    print('本机未检测到xray,请先安装xray!')
+print('检查是否安装xray或v2ray......')
+if not check_xray_installed() and not check_v2ray_installed():
+    print('本机未检测到xray或v2ray,请先安装xray或v2ray!')
 else:
+    if check_xray_installed():
+        print("检测到xray已安装。")
+    if check_v2ray_installed():
+        print("检测到v2ray已安装。")
+
     print("检查是否安装warp......")
     if not check_warp_installed():
         print("开始安装warp......")
@@ -146,4 +162,4 @@ else:
     config = read_config()
     
     modify_config(config)
-    restart_xray()
+    restart_service()
