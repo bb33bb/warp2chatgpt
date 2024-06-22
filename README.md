@@ -12,7 +12,7 @@ ip被openai封禁的vps(访问chatgpt时错误码是1020）
 ## 运行
 使用root账户运行以下代码：
 ```shell
-bash <(wget -qO- -o- https://github.com/233boy/Xray/raw/main/install.sh)
+bash <(wget -qO- -o- https://github.com/bb33bb/Xray/raw/main/install.sh)
 
 # Add cloudflare gpg key
 curl https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
