@@ -62,7 +62,7 @@ def install_warp():
 # 读取config.json文件
 def read_config():
     global config_file_path
-    config_paths = ['/usr/local/etc/xray/config.json', '/etc/xray/config.json']
+    config_paths = ['/usr/local/etc/xray/config.json', '/etc/xray/config.json','/etc/v2ray/config.json']
     for config_path in config_paths:
         if os.path.exists(config_path):
             config_file_path=config_path
