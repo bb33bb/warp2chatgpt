@@ -76,7 +76,7 @@ def modify_config(config):
             'rules': [
                 {
                     'type': 'field',
-                    'domain': ['openai.com', 'ai.com'],
+                    'domain': ['openai.com', 'claude.ai'],
                     'outboundTag': 'WARP'
                 }
             ]
@@ -89,7 +89,7 @@ def modify_config(config):
         config['routing']['rules'].append(
             {
                 'type': 'field',
-                'domain': ['openai.com', 'ai.com'],
+                'domain': ['openai.com', 'claude.ai'],
                 'outboundTag': 'WARP'
             }
         )
@@ -147,5 +147,3 @@ else:
     
     modify_config(config)
     restart_xray()
-
-
